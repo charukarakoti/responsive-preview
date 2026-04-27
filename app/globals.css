@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Design tokens ===================================================
+ * Brand palette adopted from JaiVeeru Creative Marketing Agency:
+ *   - Deep navy  (#1e2875) as the primary interaction accent
+ *   - Mustard yellow, vermilion red, fresh green — used sparingly as
+ *     category indicators (mobile / tablet / desktop).
+ *
+ * The working surface remains a neutral warm-white so the navy stays
+ * visible and the preview content (the actual site being tested) isn't
+ * tinted by its chrome.
+ * ==================================================================== */
+:root {
+  --bg: #f7f7f8;
+  --bg-subtle: #eef0f3;
+  --surface: #ffffff;
+  --surface-alt: #fafbfc;
+
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+
+  /* JaiVeeru navy — primary accent */
+  --accent: #1e2875;
+  --accent-hover: #171e5a;
+  --accent-soft: #e4e7f3;
+  --accent-ink: #ffffff;
+
+  /* JaiVeeru brand accents (category indicators) */
+  --brand-yellow: #f5c518;
+  --brand-red: #e63946;
+  --brand-green: #3db04c;
+
+  --danger: #dc2626;
+
+  --ring: 0 0 0 3px rgba(30, 40, 117, 0.18);
+}
+
+.dark {
+  --bg: #0b0d12;
+  --bg-subtle: #12151c;
+  --surface: #151922;
+  --surface-alt: #1a1f2b;
+
+  --text: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-dim: #6b7280;
+
+  --border: #242a36;
+  --border-strong: #2f3644;
+
+  --accent: #4a58c4;
+  --accent-hover: #5d6bdc;
+  --accent-soft: rgba(74, 88, 196, 0.2);
+  --accent-ink: #ffffff;
+
+  --brand-yellow: #f5c518;
+  --brand-red: #e63946;
+  --brand-green: #3db04c;
+
+  --danger: #ef4444;
+  --ring: 0 0 0 3px rgba(74, 88, 196, 0.32);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "InterVariable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Utility layer ==================================================== */
+@layer components {
+  .surface {
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .muted {
+    color: var(--text-muted);
+  }
+
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow: var(--ring);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md text-[13px] font-medium transition;
+    padding: 0.5rem 0.875rem;
+    height: 36px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn:hover {
+    background: var(--surface-alt);
+    border-color: var(--border-strong);
+  }
+  .btn:active {
+    transform: translateY(0.5px);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+  .btn-ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-muted);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-subtle);
+    color: var(--text);
+    border-color: transparent;
+  }
+
+  .input {
+    @apply w-full rounded-md text-[14px] outline-none transition;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.625rem 0.875rem;
+    height: 40px;
+  }
+  .input::placeholder {
+    color: var(--text-dim);
+  }
+  .input:hover {
+    border-color: var(--border-strong);
+  }
+  .input:focus {
+    border-color: var(--accent);
+    box-shadow: var(--ring);
+  }
+
+  .label-xs {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .kbd {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  /* Scroll styling */
+  .nice-scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--text) 14%, transparent);
+    border-radius: 999px;
+    border: 2px solid var(--bg);
+  }
+  .nice-scroll::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--text) 24%, transparent);
+  }
+}
+
+/* Slider — neutral track with the brand-accent thumb */
+input[type="range"].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2);
+  cursor: pointer;
+  transition: transform 120ms;
+}
+input[type="range"].slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"].slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  cursor: pointer;
+}
+
+/* Dashed empty state */
+.dashed {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--bg-subtle),
+    var(--bg-subtle) 8px,
+    var(--bg) 8px,
+    var(--bg) 16px
+  );
+}
+
+/* Brand gradient bar — the tricolor flourish from the JaiVeeru logo.
+   Used as a subtle 2-pixel accent under the top nav. */
+.brand-bar {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--brand-red) 0%,
+    var(--brand-red) 33%,
+    var(--brand-yellow) 33%,
+    var(--brand-yellow) 66%,
+    var(--brand-green) 66%,
+    var(--brand-green) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
