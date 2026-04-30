@@ -15,9 +15,9 @@ import DeviceCard from "./DeviceCard";
  *
  * Layout:
  *  - 1 device   → centered
- *  - 2+ devices → flex-wrap, top-aligned, generous gap. The gap narrows
- *    slightly on Desktop so two 1440-px frames can sit side-by-side at
- *    the default 50 % zoom.
+ *  - 2+ devices → flex-wrap, top-aligned, generous gap. The gap adjusts
+ *    based on device category and viewport width to ensure optimal
+ *    spacing without crowding or excessive wrapping.
  *
  * Scroll-sync leadership: the first device to scroll takes over for a
  * short window so siblings can follow its ratio without tug-of-war.
@@ -56,17 +56,25 @@ export default function PreviewGrid() {
     return <HeroEmpty />;
   }
 
-  // Desktop frames are physically wider, so tighten the gap to keep the
-  // grid from wrapping too eagerly at typical viewport widths.
-  const gap = activeCategory === "desktop" ? "gap-8" : "gap-10";
+  // Responsive gap sizing: tighter on mobile tool viewport, generous on desktop
+  // This ensures frames don't crowd on smaller screens while maintaining good
+  // spacing on larger displays.
+  let gapClass = "gap-10";
+  if (activeCategory === "desktop") {
+    gapClass = "gap-6 lg:gap-8"; // Tighter for large desktop frames
+  } else if (activeCategory === "tablet") {
+    gapClass = "gap-8 lg:gap-10"; // Medium gap for tablet frames
+  }
 
   return (
-    <div className="mx-auto max-w-[1800px] px-5 py-8">
+    <div className="mx-auto max-w-[2000px] px-4 py-8 sm:px-5 sm:py-10">
       <CategoryHeader
         activeCategory={activeCategory}
         deviceCount={devices.length}
       />
-      <div className={`flex flex-wrap items-start justify-start ${gap}`}>
+      <div
+        className={`flex flex-wrap items-start justify-start ${gapClass}`}
+      >
         {devices.map((d) => (
           <DeviceCard
             key={d.id}

@@ -316,7 +316,7 @@ function BlockedFallback({ url, onRetry }) {
       style={{ background: "var(--surface)" }}
     >
       <div
-        className="mb-2 flex h-8 w-8 items-center justify-center rounded-full"
+        className="mb-2 flex h-10 w-10 items-center justify-center rounded-full"
         style={{
           background: "color-mix(in oklab, #f59e0b 18%, transparent)",
           color: "#b45309",
@@ -330,28 +330,30 @@ function BlockedFallback({ url, onRetry }) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="h-4 w-4"
+          className="h-5 w-5"
         >
           <circle cx="12" cy="12" r="9" />
           <line x1="12" y1="8" x2="12" y2="13" />
           <line x1="12" y1="16" x2="12" y2="16.01" />
         </svg>
       </div>
-      <p className="text-[12.5px] font-semibold" style={{ color: "var(--text)" }}>
+      <p className="text-[13px] font-semibold" style={{ color: "var(--text)" }}>
         Embedding blocked
       </p>
       <p
-        className="mt-1 max-w-[230px] text-[11px] leading-relaxed"
+        className="mt-2 max-w-[240px] text-[12px] leading-relaxed"
         style={{ color: "var(--text-muted)" }}
       >
-        The site refuses iframe embedding via{" "}
-        <span className="font-mono">X-Frame-Options</span> or CSP.
+        This site restricts iframe embedding via{" "}
+        <span className="font-mono text-[11px]">X-Frame-Options</span> or
+        Content Security Policy. Use the button below to view it directly.
       </p>
-      <div className="mt-3 flex items-center gap-2">
+      <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row">
         <button
           onClick={onRetry}
-          className="btn focus-ring"
-          style={{ height: 28, padding: "0 10px", fontSize: 11 }}
+          className="btn focus-ring text-[12px]"
+          style={{ padding: "0 12px", height: 32 }}
+          title="Attempt to reload the preview"
         >
           Retry
         </button>
@@ -359,8 +361,9 @@ function BlockedFallback({ url, onRetry }) {
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="btn btn-primary focus-ring"
-          style={{ height: 28, padding: "0 10px", fontSize: 11 }}
+          className="btn btn-primary focus-ring text-[12px]"
+          style={{ padding: "0 12px", height: 32 }}
+          title="Open in new browser tab (recommended for blocked sites)"
         >
           Open in new tab
         </a>
